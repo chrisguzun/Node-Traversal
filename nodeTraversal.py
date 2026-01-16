@@ -5,6 +5,9 @@ import pickle
 import os
 import time
 
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
 class Node:
     def __init__(self, payload, x, y) -> None:
         self.payload = payload
@@ -169,7 +172,7 @@ def dijkstraPathFind(graph, start, end):
 def saveGraph(graph, graphName):
     with open(graphName + ".pkl", 'wb') as outp:
         pickle.dump(graph, outp, pickle.HIGHEST_PROTOCOL)
-    os.rename("/Users/chrisguzun/Desktop/NodeTraversal/" + graphName + ".pkl", "/Users/chrisguzun/Desktop/NodeTraversal/graphs/" + graphName + ".pkl")
+    os.rename(__location__ + graphName + ".pkl", __location__ + "/graphs/" + graphName + ".pkl")
 
 def sortGraph():
     c = 400
@@ -237,7 +240,7 @@ shortestPath = None
 start = None
 end = None
 
-"""with open("/Users/chrisguzun/Desktop/NodeTraversal/graphs/wordTree.pkl", 'rb') as inp:
+"""with open(__location__ + "/graphs/wordTree.pkl", 'rb') as inp:
     wordTree = pickle.load(inp)
 
 def convertTreeToGraph(n, x, y):
@@ -280,7 +283,7 @@ while running:
             if menu and pygame.Rect(200,200,400,400).collidepoint(event.pos) and event.button == 1:
                 for f in files:
                     if f[1].collidepoint(mousePos):
-                        with open("/Users/chrisguzun/Desktop/NodeTraversal/graphs/" + f[0], 'rb') as inp:
+                        with open(__location__ + "/graphs/" + f[0], 'rb') as inp:
                             graph = pickle.load(inp)
                             nodeDists = {}
                             sortGraph()
@@ -411,7 +414,7 @@ while running:
             if event.key == pygame.K_r:
                 graph = graph + randomGraph(10)
     
-    dir_list = os.listdir("/Users/chrisguzun/Desktop/NodeTraversal/graphs")
+    dir_list = os.listdir(__location__ + "/graphs")
     for k in dir_list:
         if k[0] == ".":
             dir_list.remove(k)
